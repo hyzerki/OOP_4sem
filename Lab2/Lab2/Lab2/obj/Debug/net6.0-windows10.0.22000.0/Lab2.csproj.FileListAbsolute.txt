@@ -40,3 +40,4 @@ D:\Everything i need\ООТП\4 сем\Лабораторные\Lab2\Lab2\Lab2\o
 D:\Everything i need\ООТП\4 сем\Лабораторные\Lab2\Lab2\Lab2\obj\Debug\net6.0-windows10.0.22000.0\Lab2.pdb
 D:\Everything i need\ООТП\4 сем\Лабораторные\Lab2\Lab2\Lab2\obj\Debug\net6.0-windows10.0.22000.0\Lab2.genruntimeconfig.cache
 D:\Everything i need\ООТП\4 сем\Лабораторные\Lab2\Lab2\Lab2\obj\Debug\net6.0-windows10.0.22000.0\ref\Lab2.dll
+D:\Everything i need\ООТП\4 сем\Лабораторные\Lab2\Lab2\Lab2\obj\Debug\net6.0-windows10.0.22000.0\Lab2.SearchForm.resources

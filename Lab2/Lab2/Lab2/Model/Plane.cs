@@ -1,16 +1,25 @@
-﻿namespace Lab1.Model
+﻿using Lab2.ValidationAttributes;
+using System.ComponentModel.DataAnnotations;
+
+namespace Lab1.Model
 {
     public enum PlaneType
     {
         Passenger, Cargo, Military
     }
-    internal class Plane
+
+    [PlaneTypeValidate]
+    public class Plane
     {
         public Guid Id { get; set; }
+        [RegularExpression(@"^[a-zA-ZА-Яа-я0-9 ]+&"), Required]
         public string Model { get; set; }
         public PlaneType Type { get; set; }
+        [Range(0, 1000)]
         public int PassengerSeats { get; set; }
+        [Range(0, 9999)]
         public int ReleasedAt { get; set; }
+        [Range(0, 1000000)]
         public int Capatity { get; set; }
         public DateTime LastMaintenance { get; set; }
         public List<CrewMate> CrewList { get; set; }

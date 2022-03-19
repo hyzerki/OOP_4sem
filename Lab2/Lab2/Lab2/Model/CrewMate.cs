@@ -4,7 +4,7 @@
     {
         Pilot, CoPilot, Stewart
     }
-    internal class CrewMate
+    public class CrewMate
     {
         public string FullName { get; set; }
         public CrewMatePost Post { get; set; }

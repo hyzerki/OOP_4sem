@@ -1,10 +1,11 @@
 ﻿using Lab1;
 using Lab1.Model;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace Lab2.Model
 {
-    internal class MainFormController
+    public class MainFormController
     {
         #region Поля и константы
         private Form1 form;
@@ -33,6 +34,8 @@ namespace Lab2.Model
             updatePlaneView(planes);
         }
 
+
+
         public void AddCrewMate(object sender, EventArgs e)
         {
             List<Plane> planes = readPlanesFromFile();
@@ -52,6 +55,23 @@ namespace Lab2.Model
             updateCrewComboBox(plane);
         }
 
+        public bool Validate<T>(object obj)
+        {
+            List<ValidationResult> pmerrors = new List<ValidationResult>();
+            if (!Validator.TryValidateObject((T)obj, new ValidationContext((T)obj), pmerrors))
+            {
+                foreach (ValidationResult res in pmerrors)
+                {
+                    MessageBox.Show(res.ErrorMessage, "Ошибка валидации", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public void OnDataEdited(object sender, EventArgs e)
         {
             Control control = (Control)sender;
@@ -66,24 +86,43 @@ namespace Lab2.Model
             switch (control.Tag)
             {
                 case "PlaneModel":
+                    string prevPlaneModel = selectedPlane.Model;
                     selectedPlane.Model = form.PlaneModelTextBox.Text;
+                    if (!Validate<Plane>(selectedPlane))
+                    {
+                        selectedPlane.Model = prevPlaneModel;
+                        form.PlaneModelTextBox.Text = prevPlaneModel;
+                    }
                     planeListToFile(planes);
+                    form.PlanesListView.SelectedItems[0].Text = selectedPlane.Model;
                     break;
                 case "PlaneType":
                     selectedPlane.Type = (PlaneType)form.PlaneTypeComboBox.SelectedItem;
-                    planeListToFile(planes);
+                    if (Validate<Plane>(selectedPlane))
+                    {
+                        planeListToFile(planes);
+                    }
                     break;
                 case "PlaneCapacity":
                     selectedPlane.Capatity = (int)form.PlaneCapacityUD.Value;
-                    planeListToFile(planes);
+                    if (Validate<Plane>(selectedPlane))
+                    {
+                        planeListToFile(planes);
+                    }
                     break;
                 case "PlaneSeats":
                     selectedPlane.PassengerSeats = (int)form.PlanePassengerSeatsUD.Value;
-                    planeListToFile(planes);
+                    if (Validate<Plane>(selectedPlane))
+                    {
+                        planeListToFile(planes);
+                    }
                     break;
                 case "PlaneReleased":
                     selectedPlane.ReleasedAt = (int)form.PlaneReleasedUD.Value;
-                    planeListToFile(planes);
+                    if (Validate<Plane>(selectedPlane))
+                    {
+                        planeListToFile(planes);
+                    }
                     break;
                 case "PlaneMaintenance":
                     selectedPlane.LastMaintenance = form.PlaneMaintenance.Value;
@@ -117,6 +156,7 @@ namespace Lab2.Model
                 case "CrewmateFullName":
                     selectedPlane.CrewList[form.CrewmatesComboBox.SelectedIndex].FullName = form.CrewmateNameTextBox.Text;
                     planeListToFile(planes);
+                    form.CrewmatesComboBox.Items[form.CrewmatesComboBox.SelectedIndex] = form.CrewmateNameTextBox.Text;
                     break;
                 case "CrewmateBdate":
                     selectedPlane.CrewList[form.CrewmatesComboBox.SelectedIndex].BirthDay = form.CrewmateBirthDayDateTimePicker.Value;
@@ -134,6 +174,7 @@ namespace Lab2.Model
 
             }
         }
+
 
         public void AddManufacturer(object sender, EventArgs e)
         {
@@ -158,7 +199,7 @@ namespace Lab2.Model
             List<Manufacturer> manufacturers = readManufacturersFromFile();
             Plane edittedPlane = (planes as IEnumerable<Plane>).Where<Plane>(p => p.Id == (form.PlanesListView.SelectedItems[0].Tag as Plane)!.Id).FirstOrDefault()!;
             Manufacturer selectedManufacturer = (manufacturers as IEnumerable<Manufacturer>).Where<Manufacturer>(p => p.Id == (cbManufacturer.SelectedItem as Manufacturer)!.Id).FirstOrDefault()!;
-            planes[planes.IndexOf(edittedPlane)].Manufacturer = selectedManufacturer;
+            edittedPlane.Manufacturer = selectedManufacturer;
             planeListToFile(planes);
 
             form.ManufacrurerCountryTextBox.Text = selectedManufacturer.Country;
@@ -278,6 +319,7 @@ namespace Lab2.Model
             this.form.CrewmateBirthDayDateTimePicker.Leave += OnDataEdited!;
             this.form.CrewmateFirstFlightDateTimePicker.Leave += OnDataEdited!;
             this.form.CrewmatePostComboBox.SelectedValueChanged += OnDataEdited!;
+
         }
         #endregion
 
@@ -336,7 +378,7 @@ namespace Lab2.Model
             this.form.CrewmatePostComboBox.Enabled = enable;
         }
 
-        private List<Plane> readPlanesFromFile()
+        public List<Plane> readPlanesFromFile()
         {
             using FileStream fs = new FileStream(PLANES_PATH, FileMode.OpenOrCreate);
             using StreamReader sr = new StreamReader(fs);
@@ -418,7 +460,7 @@ namespace Lab2.Model
                 isManufacturerInputsEnabled(false);
         }
 
-        private void updatePlaneView(List<Plane> planes, int selectedIndex = 0)
+        public void updatePlaneView(List<Plane> planes, int selectedIndex = 0)
         {
             if (planes is not null)
             {
