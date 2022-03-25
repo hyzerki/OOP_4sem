@@ -1,4 +1,6 @@
-﻿using Lab2.ValidationAttributes;
+﻿using Lab2.Adapter;
+using Lab2.Prototype;
+using Lab2.ValidationAttributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace Lab1.Model
@@ -9,7 +11,7 @@ namespace Lab1.Model
     }
 
     [PlaneTypeValidate]
-    public class Plane
+    public class Plane : IPrototype<Plane>, IPlane
     {
         public Guid Id { get; set; }
         [RegularExpression(@"^[a-zA-ZА-Яа-я0-9 ]+&"), Required]
@@ -25,9 +27,9 @@ namespace Lab1.Model
         public List<CrewMate> CrewList { get; set; }
         public Manufacturer Manufacturer { get; set; }
 
-        public Plane(Guid id, string model, PlaneType type, int passengerSeats, int releasedAt, int capatity, DateTime lastMaintenance, List<CrewMate> crewList, Manufacturer manufacturer)
+        public Plane(string model, PlaneType type, int passengerSeats, int releasedAt, int capatity, DateTime lastMaintenance, List<CrewMate> crewList, Manufacturer manufacturer)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Model = model;
             Type = type;
             PassengerSeats = passengerSeats;
@@ -36,6 +38,24 @@ namespace Lab1.Model
             LastMaintenance = lastMaintenance;
             CrewList = crewList;
             Manufacturer = manufacturer;
+        }
+
+        public Plane()
+        {
+            Id = Guid.NewGuid();
+            Model = "Новый самолёт";
+            Type = PlaneType.Passenger;
+            PassengerSeats = 0;
+            ReleasedAt = 2000;
+            Capatity = 0;
+            LastMaintenance = DateTime.Now;
+            CrewList = new List<CrewMate>();
+            Manufacturer = null!;
+        }
+
+        public void FLy()
+        {
+            MessageBox.Show($"Самолет {this.Manufacturer?.Name ?? ""} {this.Model} вылетел");
         }
     }
 }

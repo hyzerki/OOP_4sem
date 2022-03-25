@@ -1,5 +1,6 @@
 ﻿using Lab1;
 using Lab1.Model;
+using Lab2.Builder;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,7 +18,10 @@ namespace Lab2.Model
         public void AddPlane(object sender, EventArgs e)
         {
             List<Plane> planes = readPlanesFromFile();
-            Plane plane = new Plane(Guid.NewGuid(), "Новый самолёт", PlaneType.Passenger, 0, 2000, 0, DateTime.Now, new List<CrewMate>(), null!);
+            PlaneBuilder builder = new PlaneBuilder();
+            builder.SetManufacturer(null).SetCapacity(0).SetType(PlaneType.Passenger).SetLastMaintenance(DateTime.Now).SetPassengerSeats(0).SetReleasedAt(2000);
+
+            Plane plane = builder;
             planes.Add(plane);
             planeListToFile(planes);
             updatePlaneView(planes, planes.IndexOf(plane));

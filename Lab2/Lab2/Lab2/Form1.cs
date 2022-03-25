@@ -1,5 +1,7 @@
 using Lab2;
+using Lab2.Command;
 using Lab2.Model;
+using Lab2.Singletone;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -13,8 +15,11 @@ namespace Lab1
             InitializeComponent();
             this._controller = new MainFormController(this);
             this.timer1.Tick += tick!;
+            this.ChangeBackgroundCommand = new ChangeBackgroundCommand(this);
 
         }
+
+        public ChangeBackgroundCommand ChangeBackgroundCommand { get; set; }
 
         [DllImport("user32.dll")]
         private static extern int GetGuiResources(IntPtr hProcess, int uiFlags);
@@ -38,6 +43,21 @@ namespace Lab1
             searchForm.Show();
         }
 
+        private void ‚˚·ÓÿËÙÚ‡ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            fontDialog.ShowColor = true;
+            if (fontDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+            FormSettings.GetInstance().Font = fontDialog.Font;
+            FormSettings.GetInstance().FontColor = fontDialog.Color;
+            this.Font = FormSettings.GetInstance().Font;
+            this.ForeColor = FormSettings.GetInstance().FontColor;
+        }
 
+        private void ‚˚·Ó‘ÓÌ‡ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ChangeBackgroundCommand.Execute();
+        }
     }
 }

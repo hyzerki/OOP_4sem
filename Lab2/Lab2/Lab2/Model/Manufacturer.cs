@@ -1,6 +1,8 @@
-﻿namespace Lab1.Model
+﻿using Lab2.Adapter;
+
+namespace Lab1.Model
 {
-    public class Manufacturer
+    public class Manufacturer : IInvader
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -26,6 +28,11 @@
         public override string ToString()
         {
             return this.Name;
+        }
+
+        public void Invade()
+        {
+            MessageBox.Show($"Все самолёты компании {this.Name} вылетели");
         }
     }
 }

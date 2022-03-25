@@ -73,6 +73,9 @@
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.аToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выборШрифтаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выборФонаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -494,7 +497,8 @@
             // 
             this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.поискToolStripMenuItem});
+            this.поискToolStripMenuItem,
+            this.аToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(808, 24);
@@ -507,6 +511,29 @@
             this.поискToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.поискToolStripMenuItem.Text = "Поиск";
             this.поискToolStripMenuItem.Click += new System.EventHandler(this.действияToolStripMenuItem_Click);
+            // 
+            // аToolStripMenuItem
+            // 
+            this.аToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.выборШрифтаToolStripMenuItem,
+            this.выборФонаToolStripMenuItem});
+            this.аToolStripMenuItem.Name = "аToolStripMenuItem";
+            this.аToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.аToolStripMenuItem.Text = "Настройки";
+            // 
+            // выборШрифтаToolStripMenuItem
+            // 
+            this.выборШрифтаToolStripMenuItem.Name = "выборШрифтаToolStripMenuItem";
+            this.выборШрифтаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.выборШрифтаToolStripMenuItem.Text = "Выбор Шрифта";
+            this.выборШрифтаToolStripMenuItem.Click += new System.EventHandler(this.выборШрифтаToolStripMenuItem_Click);
+            // 
+            // выборФонаToolStripMenuItem
+            // 
+            this.выборФонаToolStripMenuItem.Name = "выборФонаToolStripMenuItem";
+            this.выборФонаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.выборФонаToolStripMenuItem.Text = "Выбор Фона";
+            this.выборФонаToolStripMenuItem.Click += new System.EventHandler(this.выборФонаToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -651,5 +678,8 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         public System.Windows.Forms.Timer timer1;
         private ToolStripStatusLabel toolStripStatusLabel2;
+        private ToolStripMenuItem аToolStripMenuItem;
+        private ToolStripMenuItem выборШрифтаToolStripMenuItem;
+        private ToolStripMenuItem выборФонаToolStripMenuItem;
     }
 }
