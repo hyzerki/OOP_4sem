@@ -1,0 +1,13 @@
+﻿<Application x:Class="Lab6.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="clr-namespace:Lab6.View"
+             xmlns:vm="clr-namespace:Lab6.ViewModel"
+             xmlns:local="clr-namespace:Lab6"
+             StartupUri="View/MainWindow.xaml">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type vm:MainViewModel}">
+            <v:MainView/>
+        </DataTemplate>
+    </Application.Resources>
+</Application>

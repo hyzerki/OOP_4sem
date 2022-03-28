@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Lab6.View.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lab6.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="50px" MaxWidth="400px"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Button Content="Каталог"/>
+            <Button Content="Корзина"/>
+            <Button Content="Выход"/>
+
+        </StackPanel>
+        <GridSplitter Grid.Column="0" Background="Gray" Width="4px"/>
+    </Grid>
+</UserControl>
