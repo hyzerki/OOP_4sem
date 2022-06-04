@@ -4,7 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab6"
+        xmlns:viewmodel="clr-namespace:Lab6.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <ContentControl Content="{Binding CurrentViewModel}"/>
+        Title="Книжный магазин" Height="450" Width="800">
+
+    <Grid Background="{DynamicResource PrimaryColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="ColorComboBox" Foreground="{DynamicResource TextPrimaryColor}" Background="{DynamicResource SecondaryColor}"/>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
+    </Grid>
 </Window>

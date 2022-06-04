@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="Lab6.View.AddBookToCatalogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lab6.View" xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:res="clr-namespace:Lab6.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50px"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label FontSize="30" Content="{x:Static res:Localization.BookAddLabel}" Grid.Row="0" />
+        
+        <StackPanel Grid.Row="1" Margin="50,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image>
+                        <Image.Source>
+                            <Binding Path="Image">
+                            </Binding>
+                        </Image.Source>
+
+                    </Image>
+                    <Button Content="{x:Static res:Localization.LoadImageBtn}" Grid.Column="1" Command="{Binding LoadImageCommand}"/>
+                </Grid>
+                
+
+                <StackPanel Grid.Column="1">
+                    <Label Content="{x:Static res:Localization.BookNameLabel}"/>
+                    <TextBox x:Name="NameTextBox">
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="TextChanged">
+                                <b:InvokeCommandAction Command="{Binding OnInputCommand}"/>
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+                        <TextBox.Text>
+                            <Binding Path="Name">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <Label Content="{x:Static res:Localization.BookAuthorLabel}"/>
+                    <TextBox x:Name="AuthorTextBox">
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="TextChanged">
+                                <b:InvokeCommandAction Command="{Binding OnInputCommand}"/>
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+                        <TextBox.Text>
+                            <Binding Path="Author">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <Label Content="{x:Static res:Localization.BookPagesLabel}"/>
+                    <TextBox x:Name="PagesTextBox">
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="TextChanged">
+                                <b:InvokeCommandAction Command="{Binding OnInputCommand}"/>
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+                        <TextBox.Text>
+                            <Binding Path="Pages">
+                                <Binding.ValidationRules>
+                                    <ExceptionValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    
+                </StackPanel>
+            </Grid>
+            <Label Content="{x:Static res:Localization.BookDescriptionLabel}"/>
+            <TextBox x:Name="DescriptionTextBox" Height="90px" TextWrapping="Wrap">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="TextChanged">
+                        <b:InvokeCommandAction Command="{Binding OnInputCommand}"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+                <TextBox.Text>
+                    <Binding Path="Description">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding RestoreCommand}" Content="Вернуть"/>
+                <Button Grid.Column="1" Content="{x:Static res:Localization.AddBookBtn}" Command="{Binding AddBookCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=NameTextBox}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=AuthorTextBox}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=PagesTextBox}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=DescriptionTextBox}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

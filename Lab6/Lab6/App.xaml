@@ -9,5 +9,32 @@
         <DataTemplate DataType="{x:Type vm:MainViewModel}">
             <v:MainView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CatalogViewModel}">
+            <v:CatalogView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <v:LoginView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
+            <v:RegisterView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddBookToCatalogViewModel}">
+            <v:AddBookToCatalogView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BookInspectViewModel}">
+            <v:BookInspectView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EditBookViewModel}">
+            <v:EditBookView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CartViewModel}">
+            <v:CartView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ADODemoViewModel}">
+            <v:ADODemoView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EventsDemoViewModel}">
+            <v:EventsDemo/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

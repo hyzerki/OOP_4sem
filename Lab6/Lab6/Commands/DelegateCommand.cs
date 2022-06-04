@@ -5,16 +5,40 @@ namespace Lab6.Commands
 {
     internal class DelegateCommand : ICommand
     {
-        public event EventHandler? CanExecuteChanged;
+        Action executable;
+        Func<bool>? canExecute;
 
+        public event EventHandler? CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
         public bool CanExecute(object? parameter)
         {
-            throw new NotImplementedException();
+            if (canExecute is not null)
+            {
+                return canExecute();
+            }
+            return true;
         }
 
         public void Execute(object? parameter)
         {
-            throw new NotImplementedException();
+            if (executable is not null)
+            {
+                executable();
+            }
+        }
+
+        public DelegateCommand(Action executable, Func<bool> canExecute)
+        {
+            this.executable = executable;
+            this.canExecute = canExecute;
+        }
+
+        public DelegateCommand(Action executable)
+        {
+            this.executable = executable;
         }
     }
 }
